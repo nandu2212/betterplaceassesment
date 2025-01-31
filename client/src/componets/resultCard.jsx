@@ -1,15 +1,17 @@
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import React from "react";
+import { useSelector,useDispatch } from "react-redux";
 import { CancelOutlined, CheckCircleOutline } from '@mui/icons-material'
-const ResultCard = (props) => {
-    const { earnedPoints, roll1, roll2, total } = props.Result
-    console.log(earnedPoints, roll1, roll2, total)
+import {setBetStatus} from '../store/gamereducer'
+const ResultCard = () => {
+    const dispatch=useDispatch();
+    const { earnedPoints, roll1, roll2, total } = useSelector((state) => state.Game.outPut)
     return (
         <Card sx={{ maxWidth: 345, margin: 'auto', borderRadius: 2, boxShadow: 3 }}>
             <CardContent sx={{ textAlign: 'center' }}>
                 <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#3f51b5' }}>Bet Status</Typography>
-                <Typography variant="h6" sx={{ marginTop: 2, color: '#555' }}>Score1:{roll1}</Typography>
-                <Typography variant="h6" sx={{ marginTop: 1, color: '#555' }}>Score2:{roll2}</Typography>
+                <Typography variant="h6" sx={{ marginTop: 2, color: '#555' }}>Die1 result:{roll1}</Typography>
+                <Typography variant="h6" sx={{ marginTop: 1, color: '#555' }}>Die2 result:{roll2}</Typography>
                 <Typography variant="h6" sx={{ marginTop: 1, color: '#555' }}>total:{total}</Typography>
                 {earnedPoints < 0 ? (
                     <>
@@ -23,7 +25,7 @@ const ResultCard = (props) => {
                     </>
                 )}
             </CardContent>
-            <Button variant="contained" sx={{ color: 'error.main' }} onClick={props.BetStatus}>place bet again</Button>
+            <Button variant="contained" sx={{ color: 'error.main' }} onClick={()=>dispatch(setBetStatus({betStatus:false,rolling:false}))}>place bet again</Button>
         </Card>
     )
 }
