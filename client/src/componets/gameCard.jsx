@@ -3,10 +3,11 @@ import  {Grid2,Button, Typography, CircularProgress } from '@mui/material'
 import axios from 'axios'
 import ResultCard from "./resultCard";
 const GameCard=()=>{
-    const [points, setPoints] = useState(5000);
+    const [points, setPoints] = useState(300);
     const [betType, setBetType] = useState(null);
     const [betAmount, setBetAmount] = useState(0);
     const [rolling, setRolling] = useState(false)
+    const [dieResult, setDieResult] = useState(0);
     const [amountindex, setAmountIndex] = useState(null);
     const [typeIndex, settypeIndex] = useState(null)
     const [betStatus, setbetStatus] = useState(false)
@@ -15,6 +16,7 @@ const GameCard=()=>{
         setRolling(true);
         setTimeout(async () => {
             const response = await axios.post('http://localhost:5000/roll', { betAmount, betType });
+            console.log(response.data);
             setPoints(points + response.data.earnedPoints)
             setOutput(response.data);
             setbetStatus(true);
@@ -45,16 +47,13 @@ const BetStatus=()=>{
                         )}
                     </Grid2>
                 </Grid2>
-                <Grid2>
-                    <Typography variant="h6">choose your option to place bet </Typography>
-                    <Grid2 item container spacing={3} justifyContent="center">
-                        {
-                            ["Below", "Equalto", "Above"].map((condition, index) => (
-                                <Button variant={index == typeIndex ? "contained" : "outlined"} onClick={() => { setBetType(condition); settypeIndex(index) }} disabled={rolling} >{condition} 7</Button>
-                            ))
-                        }
+                <Grid2 item container spacing={3} justifyContent="center">
+                    {
+                        ["Below", "Equalto", "Above"].map((condition, index) => (
+                            <Button variant={index == typeIndex ? "contained" : "outlined"} onClick={() => { setBetType(condition); settypeIndex(index) }} disabled={rolling} >{condition} 7</Button>
+                        ))
+                    }
 
-                    </Grid2>
                 </Grid2>
                 {
                     betType && betAmount > 0 ?
