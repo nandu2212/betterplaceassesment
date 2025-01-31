@@ -22,8 +22,8 @@ reducers:{
         state.points += action.payload
     },
     setBet: (state, action) => {
-        state.currentBet = action.payload.amount;
-        state.betType = action.payload.type;
+        state.currentBet = action.payload?.amount;
+        state.betType = action.payload?.type;
     },
     setBetStatus: (state, action) => {
         state.betStatus = action.payload.betStatus;
