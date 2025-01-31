@@ -1,10 +1,12 @@
 
 import './App.css';
+import GameCard from './componets/gameCard';
+
 
 function App() {
   return (
     <div className="App">
-     <h1> start the application</h1>
+  <GameCard/>
     </div>
   );
 }
