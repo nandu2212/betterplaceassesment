@@ -6,29 +6,18 @@ import ResultCard from "./resultCard";
 import {setPoints,setBet,setBetStatus,setOutput} from '../store/gamereducer'
 const GameCard=()=>{
     const dispatch=useDispatch();
-const { points, betStatus, rolling,outPut } = useSelector((state) => state.Game)
-    // const [points, setPoints] = useState(300);
+    const { points, betStatus, rolling } = useSelector((state) => state.Game)
     const [betType, setBetType] = useState(null);
     const [betAmount, setBetAmount] = useState(0);
-    // const [rolling, setRolling] = useState(false)
+    
     const [amountindex, setAmountIndex] = useState(null);
     const [typeIndex, settypeIndex] = useState(null)
-    // const [betStatus, setbetStatus] = useState(false)
-    // const [output, setOutput] = useState({})
     const handleDieRoll = async () => {
-        // setRolling(true);
         dispatch(setBetStatus({betStatus:false,rolling:true}))
         setTimeout(async () => {
             const response = await axios.post('http://localhost:5000/roll', { betAmount, betType });
-            console.log(response.data);
-        
             dispatch(setOutput(response.data))
-            // setPoints(points + response.data.earnedPoints)
             dispatch(setPoints(response.data.earnedPoints))
-            // setOutput(response.data);
-            // setbetStatus(true);
-            // setRolling(false)
-            console.log(points,"points")
             dispatch(setBetStatus({betStatus:true,rolling:true}))
             settypeIndex(null)
             setAmountIndex(null)

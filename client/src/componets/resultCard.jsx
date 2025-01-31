@@ -16,7 +16,7 @@ const ResultCard = () => {
                 {earnedPoints < 0 ? (
                     <>
                         <CancelOutlined color="error" sx={{ fontSize: 40, marginTop: 3 }} />
-                        <Typography variant="span" sx={{ color: 'error.main', fontSize: 18, fontWeight: 'bold' }}>You lost</Typography>
+                        <Typography variant="span" sx={{ color: 'error.main', fontSize: 18, fontWeight: 'bold' }}>You lost {earnedPoints*-1}</Typography>
                     </>
                 ) : (
                     <>
